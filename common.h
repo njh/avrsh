@@ -48,50 +48,6 @@
 #define HIGH	1
 #define LOW		0
 
-#define _PORTA	0
-#define _PORTB	1
-#define _PORTC	3
-#define _PORTD	4
-#define _PORTE	5
-#define _PORTF	6
-#define _PORTG	7
-#define _PORTH	8
-#define _PORTJ	9
-#define _PORTK	9
-#define _PORTL	10
-
-#define PIN0	0
-#define PIN1	1
-#define PIN2	2
-#define PIN3	3
-#define PIN4	4
-#define PIN5	5
-#define PIN6	6
-#define PIN7	7
-
-#define PB0		0
-#define PB1		1
-#define PB2		2
-#define PB3		3
-#define PB4		4
-#define PB5		5
-#define PB6		6
-#define PB7		7
-#define PC0		8
-#define PC1		9
-#define PC2		10
-#define PC3		11
-#define PC4		12
-#define PC5		13
-#define PC6		14
-#define PD0		15
-#define PD1		16
-#define PD2		17
-#define PD3		18
-#define PD4		19
-#define PD5		20
-#define PD6		21
-#define PD7		22
 #define NUM_PINS 23
 
 // Typedefs for shorthand
