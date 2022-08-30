@@ -20,63 +20,63 @@ static ScriptEngine	scriptEngine;
 
 int main(void)
 {
-	scriptEngine.Init();	// initialize EEPROM variables
-	shell.SetScriptEngine(&scriptEngine);
+    scriptEngine.Init();	// initialize EEPROM variables
+    shell.SetScriptEngine(&scriptEngine);
 
-	uart.EnableInterrupt(UART_RX);
-	sei();
-	
-	for (;;) 
-	{	
-		if (TCNT1 > CHECK_TIME)
-		{
-			StopTimer();
-			ClearTimer();
-			
-			int	ret;
-			if (  (ret = shell.Process(uart.GetRXBuff())) ) {
-			}
-			uart.FlushRXBuff();		
-		}
-	}
+    uart.EnableInterrupt(UART_RX);
+    sei();
+
+    for (;;)
+    {
+        if (TCNT1 > CHECK_TIME)
+        {
+            StopTimer();
+            ClearTimer();
+
+            int	ret;
+            if (  (ret = shell.Process(uart.GetRXBuff())) ) {
+            }
+            uart.FlushRXBuff();
+        }
+    }
 }
 
 ScriptEngine & appGetScriptEngine()
 {
-	return scriptEngine;
+    return scriptEngine;
 }
 
 void	WriteLine(const char * msg, uint8 doPrompt)
 {
-	uart.WriteLine(msg);
-	if (doPrompt)
-		uart.WriteRAM(shell.Prompt());
+    uart.WriteLine(msg);
+    if (doPrompt)
+        uart.WriteRAM(shell.Prompt());
 }
 
 void	WriteRAM(const char * msg, uint8 doPrompt)
 {
-	uart.WriteRAM(msg);
-	if (doPrompt)
-		uart.WriteRAM(shell.Prompt());
+    uart.WriteRAM(msg);
+    if (doPrompt)
+        uart.WriteRAM(shell.Prompt());
 }
 
 
 
 ISR(TIMER0_COMPA_vect)
 {
-	if (++(shell.timect) >= 100) {
-		shell.timect = 0;
-		shell.AddSec();
-	}
+    if (++(shell.timect) >= 100) {
+        shell.timect = 0;
+        shell.AddSec();
+    }
 }
 
 ISR(USART_RX_vect)
 {
-	StopTimer();
-	ClearTimer();
-	
-	uchar c = UART::rx();
-	uart.AddToReceive(c);
-	
-	StartTimer();
+    StopTimer();
+    ClearTimer();
+
+    uchar c = UART::rx();
+    uart.AddToReceive(c);
+
+    StartTimer();
 }

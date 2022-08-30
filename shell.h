@@ -19,39 +19,53 @@
 class AVRShell
 {
 public:
-	AVRShell(UART * uart) { out = uart; timeSec = 0; timect=0; bIsAuthorized = 0; StringCopy(_prompt,DEFAULT_PROMPT); bIsFSOn = 0; }
-	
-	uint8	ExecCmd(char *, char **);
-	uint8	Process(const char * b);
-	inline void AddSec() volatile { ++timeSec; }
-	inline void SetScriptEngine(ScriptEngine * se) { script = se; }
-	inline char * Prompt(char * p = NULL) { if (p) StringCopy(_prompt,p); return _prompt; }
-	
-	// Commands
-	void	cmdHelp();
-	void	cmdFCPU();
-	void	cmdSet(char **);
-	void	cmdAuth(char **);
-	void	cmdClock(char **);
-	void	cmdTimer(char **);
-	void	cmdRead(char **);
-	void	cmdPasswd(char **);
-	void	cmdWrite(char **);
-	void	cmdPowerUp(char **);
-	void	cmdPowerDown(char **);
-	void	cmdEna(char **);
-	void	cmdDir(char **);
-	
-	
-	volatile uint8 timect;
-	
+    AVRShell(UART * uart) {
+        out = uart;
+        timeSec = 0;
+        timect=0;
+        bIsAuthorized = 0;
+        StringCopy(_prompt,DEFAULT_PROMPT);
+        bIsFSOn = 0;
+    }
+
+    uint8	ExecCmd(char *, char **);
+    uint8	Process(const char * b);
+    inline void AddSec() volatile {
+        ++timeSec;
+    }
+    inline void SetScriptEngine(ScriptEngine * se) {
+        script = se;
+    }
+    inline char * Prompt(char * p = NULL) {
+        if (p) StringCopy(_prompt,p);
+        return _prompt;
+    }
+
+    // Commands
+    void	cmdHelp();
+    void	cmdFCPU();
+    void	cmdSet(char **);
+    void	cmdAuth(char **);
+    void	cmdClock(char **);
+    void	cmdTimer(char **);
+    void	cmdRead(char **);
+    void	cmdPasswd(char **);
+    void	cmdWrite(char **);
+    void	cmdPowerUp(char **);
+    void	cmdPowerDown(char **);
+    void	cmdEna(char **);
+    void	cmdDir(char **);
+
+
+    volatile uint8 timect;
+
 private:
-	ScriptEngine *	script;
-	UART *			out;
-	char 			_prompt[MAX_PROMPTSZ];
-	volatile uint8	timeSec;
-	uint8			bIsAuthorized;
-	uint8			bIsFSOn;
+    ScriptEngine *	script;
+    UART *			out;
+    char 			_prompt[MAX_PROMPTSZ];
+    volatile uint8	timeSec;
+    uint8			bIsAuthorized;
+    uint8			bIsFSOn;
 
 };
 #endif	/* _AVRSH_SHELL_H_ */

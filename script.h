@@ -15,15 +15,15 @@
 
 typedef struct
 {
-	union {
-		struct {
-			uint8	valh;
-			uint8	vall;
-		} val8;
-		uint16	val16;
-	} val;
-	char 	name[8];
-	uint8	slot;
+    union {
+        struct {
+            uint8	valh;
+            uint8	vall;
+        } val8;
+        uint16	val16;
+    } val;
+    char 	name[8];
+    uint8	slot;
 } NamedVar;
 
 extern NamedVar	Variables[];
@@ -31,30 +31,32 @@ extern NamedVar	Variables[];
 class ScriptEngine
 {
 public:
-	
-	ScriptEngine();
-	
-	void	Init();	
-	uint8	Interpret(char *, char **);
-	uint8	AddVariable(NamedVar & v);
-	
-	void	parseEcho(char **);
-	void	parseVar(char *, char **);
-	void	parsePrint(char **);
-	void	parseRegister(char *, char **);
-	
-	uint8 Count() { return _numVars; }
-	
+
+    ScriptEngine();
+
+    void	Init();
+    uint8	Interpret(char *, char **);
+    uint8	AddVariable(NamedVar & v);
+
+    void	parseEcho(char **);
+    void	parseVar(char *, char **);
+    void	parsePrint(char **);
+    void	parseRegister(char *, char **);
+
+    uint8 Count() {
+        return _numVars;
+    }
+
 private:
-	uint8	_numVars;
-	struct _tasklist_ 
-	{
-		PortPin *	pin;
-		uint16		ms;
-		NamedVar *	variable;
-		_tasklist_ * next;
-	
-	} TaskList;
+    uint8	_numVars;
+    struct _tasklist_
+    {
+        PortPin *	pin;
+        uint16		ms;
+        NamedVar *	variable;
+        _tasklist_ * next;
+
+    } TaskList;
 };
 
 

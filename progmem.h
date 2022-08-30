@@ -4,7 +4,7 @@
 // Name: progmem.h
 // Author: B. Gian James <gian@BattleDroids.net>
 // Description: This file is an effort to fix gcc's broken PROGMEM attribute
-//              in C++.  
+//              in C++.
 //
 // $Id: progmem.h,v 1.6 2009/09/05 04:06:17 gian Exp $
 ////////////////////////////////////////////////////////////////////////////

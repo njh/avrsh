@@ -3,16 +3,16 @@
 ////////////////////////////////////////////////////////////////////////////
 // Name: register.h
 // Author: B. Gian James <gian@BattleDroids.net>
-// Description: This file declares the scripting components that allow 
+// Description: This file declares the scripting components that allow
 //              the user to check registers in real-time.
 //
 // $Id: register.h,v 1.3 2009/08/30 17:44:28 gian Exp $
 ////////////////////////////////////////////////////////////////////////////
 typedef struct _rv
 {
-	volatile uint8 *	reg;
-	const char *			    name;
-	
+    volatile uint8 *	reg;
+    const char *			    name;
+
 } RegisterVars;
 
 //extern RegisterVars	Registers[];
@@ -20,15 +20,15 @@ typedef struct _rv
 class Register
 {
 public:
-	Register();
-	static uint8 *	GetRegisterByName(const char *);
-	static void		PrintRegisters();
-	static void		WriteRegister(uint8 * reg);
+    Register();
+    static uint8 *	GetRegisterByName(const char *);
+    static void		PrintRegisters();
+    static void		WriteRegister(uint8 * reg);
 
 private:
-	const static RegisterVars Registers[];
-	
-	static char *	getRegNameFromPgmSpace(uint8);
+    const static RegisterVars Registers[];
+
+    static char *	getRegNameFromPgmSpace(uint8);
 
 };
 

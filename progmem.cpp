@@ -2,7 +2,7 @@
 // Name: progmem.cpp
 // Author: B. Gian James <gian@BattleDroids.net>
 // Description: This file is an effort to fix gcc's broken PROGMEM attribute
-//              in C++.  
+//              in C++.
 //
 // $Id: progmem.cpp,v 1.3 2009/09/05 04:06:17 gian Exp $
 ////////////////////////////////////////////////////////////////////////////

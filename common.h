@@ -32,16 +32,16 @@
 #define BIT16(b) ((unsigned long)0x00000001 << (b))
 #define	BIT8(b) (0x01 << (b))
 
-// from AVR035: Efficient C Coding for AVR 
-#define BSET(ADDRESS,BIT) (ADDRESS |= (unsigned char)(1<<BIT)) 
-#define BCLR(ADDRESS,BIT) (ADDRESS &= (unsigned char)~(1<<BIT)) 
-#define BTOG(ADDRESS,BIT) (ADDRESS ^= (unsigned char)(1<<BIT)) 
-#define BCHK(ADDRESS,BIT) (ADDRESS &  (unsigned char)(1<<BIT)) 
+// from AVR035: Efficient C Coding for AVR
+#define BSET(ADDRESS,BIT) (ADDRESS |= (unsigned char)(1<<BIT))
+#define BCLR(ADDRESS,BIT) (ADDRESS &= (unsigned char)~(1<<BIT))
+#define BTOG(ADDRESS,BIT) (ADDRESS ^= (unsigned char)(1<<BIT))
+#define BCHK(ADDRESS,BIT) (ADDRESS &  (unsigned char)(1<<BIT))
 
-#define BMSET(x,y) (x |= (y)) 
-#define BMCLR(x,y) (x &= (~y)) 
-#define BMTOG(x,y) (x ^= (y)) 
-#define BMCHK(x,y) (x & (y)) 
+#define BMSET(x,y) (x |= (y))
+#define BMCLR(x,y) (x &= (~y))
+#define BMTOG(x,y) (x ^= (y))
+#define BMCHK(x,y) (x & (y))
 
 #define IO_IN	0
 #define IO_OUT	1
@@ -60,11 +60,11 @@ typedef unsigned char uchar;
 
 typedef struct
 {
-	volatile uint8 *	port;
-	volatile uint8 *	ddr;
-	uint8				pin;
-	const char *		name;
-	
+    volatile uint8 *	port;
+    volatile uint8 *	ddr;
+    uint8				pin;
+    const char *		name;
+
 } PortPin;
 
 const extern PortPin PortPins[] PROGMEM;
@@ -74,7 +74,7 @@ const extern PortPin PortPins[] PROGMEM;
 #ifdef __cplusplus
 extern "C" {
 #endif
-void __cxa_pure_virtual(void); 
+void __cxa_pure_virtual(void);
 #ifdef __cplusplus
 }
 #endif
