@@ -31,7 +31,7 @@ uint8 * getDDRByName(char * pin)
 {
 	for(uint8 i = 0; i < NUM_PINS; i++)
 	{
-		PortPin * ppp = &PortPins[i];
+		const PortPin * ppp = &PortPins[i];
 		char * pname = (char*)pgm_read_word(&ppp->name);
 		if (!strcasecmp_P(pin,pname)) {
 			return (uint8*)pgm_read_word(&ppp->ddr);
@@ -43,7 +43,7 @@ uint8* getPortByName(char * pin)
 {
 	for(uint8 i = 0; i < NUM_PINS; i++)
 	{
-		PortPin * ppp = &PortPins[i];
+		const PortPin * ppp = &PortPins[i];
 		char * pname = (char*)pgm_read_word(&ppp->name);
 		if (!strcasecmp_P(pin,pname))
 			return (uint8*)pgm_read_word(&ppp->port);
@@ -55,7 +55,7 @@ uint8 getPinByName(char * pin)
 {
 	for (uint8 i = 0; i < NUM_PINS; i++)
 	{
-		PortPin * ppp = &PortPins[i];
+		const PortPin * ppp = &PortPins[i];
 		char * pname = (char*)pgm_read_word(&ppp->name);
 		if (!strcasecmp_P(pin,pname))
 			return (uint8)pgm_read_byte(&ppp->pin);

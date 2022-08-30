@@ -16,7 +16,7 @@
 // If you really need to conserve RAM, you can put each of these strings
 // individually into program memory and then put the array there, too.
 // Entered strings and struct array into PROGMEM 8.30.09 -gian
-RegisterVars
+const RegisterVars
 Register::Registers[] PROGMEM =
 	{
 		{ &PORTB, pmPORTB }, { &TIFR0, pmTIFR0 },
@@ -87,7 +87,7 @@ Register::WriteRegister(uint8 * reg)
 char * 
 Register::getRegNameFromPgmSpace(uint8 idx)
 {
-	RegisterVars * reg = &Registers[idx];
+	const RegisterVars * reg = &Registers[idx];
 	char * rname = (char*)pgm_read_word(&reg->name);
 	return rname;
 }
@@ -120,7 +120,7 @@ Register::GetRegisterByName(const char * n)
 	char * rname = getRegNameFromPgmSpace(x);
 
 	while(rname != NULL) {
-		RegisterVars * reg = &Registers[x];
+		const RegisterVars * reg = &Registers[x];
 		if (!strcmp_P(n,rname))
 			return (uint8*)pgm_read_byte(&reg->reg);
 		++x;

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "progmem.h"
 
-PortPin	PortPins[] = {
+const PortPin PortPins[] = {
 	{ &PORTB, &DDRB, PINB0, pmPB0},
 	{ &PORTB, &DDRB, PINB1,  pmPB1},
 	{ &PORTB, &DDRB, PINB2,  pmPB2},

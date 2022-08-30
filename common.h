@@ -67,7 +67,7 @@ typedef struct
 	
 } PortPin;
 
-extern PortPin	PortPins[] PROGMEM;
+const extern PortPin PortPins[] PROGMEM;
 
 
 // C++ Sanity Wrappers
