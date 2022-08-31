@@ -28,20 +28,11 @@
 #define StopSPITimer()	BCLR(TCCR2B,CS20), BCLR(TCCR2B,CS22)
 #define ClearSPITimer()	(TCNT2 = 0)
 
-// This just makes my life easier
-#define BIT16(b) ((unsigned long)0x00000001 << (b))
-#define	BIT8(b) (0x01 << (b))
-
 // from AVR035: Efficient C Coding for AVR
 #define BSET(ADDRESS,BIT) (ADDRESS |= (unsigned char)(1<<BIT))
 #define BCLR(ADDRESS,BIT) (ADDRESS &= (unsigned char)~(1<<BIT))
 #define BTOG(ADDRESS,BIT) (ADDRESS ^= (unsigned char)(1<<BIT))
 #define BCHK(ADDRESS,BIT) (ADDRESS &  (unsigned char)(1<<BIT))
-
-#define BMSET(x,y) (x |= (y))
-#define BMCLR(x,y) (x &= (~y))
-#define BMTOG(x,y) (x ^= (y))
-#define BMCHK(x,y) (x & (y))
 
 #define IO_IN	0
 #define IO_OUT	1
@@ -69,28 +60,6 @@ typedef struct
 
 const extern PortPin PortPins[] PROGMEM;
 
-
-// C++ Sanity Wrappers
-#ifdef __cplusplus
-extern "C" {
-#endif
-void __cxa_pure_virtual(void);
-#ifdef __cplusplus
-}
-#endif
-
-#ifdef __cplusplus
-void * operator new(size_t size);
-void * operator new[] (size_t size);
-void operator delete(void * ptr);
-void operator delete[] (void * ptr);
-#endif
-
-#ifdef __BROKEN_PGMSPACE__
-extern char const __attribute__((__progmem__)) conInitialized[];
-extern char const __attribute__((__progmem__)) conDoConfig[];
-extern char const __attribute__((__progmem__)) *  conMessages[];
-#endif
 
 // Utility functions
 uint8_t StringCopy(char *, const char *);
