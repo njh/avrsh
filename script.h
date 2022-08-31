@@ -8,7 +8,6 @@
 /// $Id: script.h,v 1.2 2009/08/29 21:04:21 gian Exp $
 ////////////////////////////////////////////////////////////////////////////////
 #include "common.h"
-#include "uart.h"
 
 #define REDIRECT		">"
 #define MAX_VARIABLES	20

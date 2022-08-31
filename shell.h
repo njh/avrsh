@@ -9,7 +9,7 @@
 // $Id: shell.h,v 1.5 2009/09/02 12:55:17 gian Exp $
 ////////////////////////////////////////////////////////////////////////////
 #include "common.h"
-#include "uart.h"
+//#include "uart.h"
 #include "script.h"
 
 #define EE_ROOT 0x01
@@ -19,8 +19,8 @@
 class AVRShell
 {
 public:
-    AVRShell(UART * uart) {
-        out = uart;
+    AVRShell(Stream * stream) {
+        out = stream;
         timeSec = 0;
         timect=0;
         bIsAuthorized = 0;
@@ -29,7 +29,7 @@ public:
     }
 
     uint8	ExecCmd(char *, char **);
-    uint8	Process(const char * b);
+    uint8	Process(char * b);
     inline void AddSec() volatile {
         ++timeSec;
     }
@@ -61,7 +61,7 @@ public:
 
 private:
     ScriptEngine *	script;
-    UART *			out;
+    Stream *		out;
     char 			_prompt[MAX_PROMPTSZ];
     volatile uint8	timeSec;
     uint8			bIsAuthorized;

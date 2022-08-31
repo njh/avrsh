@@ -6,8 +6,10 @@
 //
 // $Id: shell.cpp,v 1.7 2009/09/05 04:06:17 gian Exp $
 ////////////////////////////////////////////////////////////////////////////
+#include <Arduino.h>
+
 #include "shell.h"
-#include "rbuff.h"
+
 #include <string.h>
 #include <avr/boot.h>
 #include <avr/power.h>
@@ -207,30 +209,30 @@ AVRShell::cmdFCPU()
 void
 AVRShell::cmdHelp()
 {
-    out->WriteLine(helpmenu1);
-    out->WriteLine(helpmenu2);
-    out->WriteLine(helpmenu3);
-    out->WriteLine(helpmenu4);
-    out->WriteLine(helpmenu4_1);
-    out->WriteLine(helpmenu5);
-    out->WriteLine(helpmenu6);
-    out->WriteLine(helpmenu7);
-    out->WriteLine(helpmenu7_5);
-    out->WriteLine(helpmenu8);
-    out->WriteLine(helpmenu9);
-    out->WriteLine(helpmenu10);
-    out->WriteLine(helpmenu11);
-    out->WriteLine(helpmenu12);
-    out->WriteLine(helpmenu13);
-    out->WriteLine(helpmenu14);
-    out->WriteLine(helpmenu15);
-    out->WriteLine(helpmenu16);
-    out->WriteLine(helpmenu16_1);
-    out->WriteLine(helpmenu17);
-    out->WriteLine(helpmenu18);
-    out->WriteLine(helpmenu19);
-    out->WriteLine(helpmenu20);
-    WriteLine(helpmenu21,0);
+    WriteLine(helpmenu1, 0);
+    WriteLine(helpmenu2, 0);
+    WriteLine(helpmenu3, 0);
+    WriteLine(helpmenu4, 0);
+    WriteLine(helpmenu4_1, 0);
+    WriteLine(helpmenu5, 0);
+    WriteLine(helpmenu6, 0);
+    WriteLine(helpmenu7, 0);
+    WriteLine(helpmenu7_5, 0);
+    WriteLine(helpmenu8, 0);
+    WriteLine(helpmenu9, 0);
+    WriteLine(helpmenu10, 0);
+    WriteLine(helpmenu11, 0);
+    WriteLine(helpmenu12, 0);
+    WriteLine(helpmenu13, 0);
+    WriteLine(helpmenu14, 0);
+    WriteLine(helpmenu15, 0);
+    WriteLine(helpmenu16, 0);
+    WriteLine(helpmenu16_1, 0);
+    WriteLine(helpmenu17, 0);
+    WriteLine(helpmenu18, 0);
+    WriteLine(helpmenu19, 0);
+    WriteLine(helpmenu20, 0);
+    WriteLine(helpmenu21, 0);
     WriteLine(endl);
 }
 
@@ -384,12 +386,8 @@ AVRShell::ExecCmd(char * c, char ** args)
 }
 
 uint8
-AVRShell::Process(const char * b)
+AVRShell::Process(char * buff)
 {
-    // make a quick copy in case the ring buffer gets more data
-    char	buff[MAX_TXBUFF];
-    memcpy(buff,b,MAX_TXBUFF);
-
     int	idx = 0;
     char *cmd, *ptr, *args[MAX_ARGS];
     if (strtok(buff,WHITE_SPACE) == NULL)
