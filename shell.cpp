@@ -15,13 +15,44 @@
 #include <avr/power.h>
 #include <avr/pgmspace.h>
 #include <stdlib.h>
-#include "progmem.h"
 
 #define MAX_ARGS	6
 #define MAX_PASSWD	12
 #define WHITE_SPACE " \r\t\n"
 
 static char		buff[40];
+
+static const char strCmdRead1[] PROGMEM = "Pin: %s is HIGH\r\n";
+static const char strCmdRead2[] PROGMEM = "Pin: %s is LOW\r\n";
+static const char pmUnkCmd[] PROGMEM = "<<ERROR>> %s: unknown command.\r\n";
+static const char pmEnaSvc[] PROGMEM = "Service: %s enabled.\r\n";
+
+static const char helpText[] PROGMEM =
+    "                  .oO[ Help Menu ]Oo.\r\n"
+    ".........................................................................\r\n"
+    "The following commands are available on the ATmega328P:\r\n"
+    "help or menu                        This help menu\r\n"
+    "ena [vars|script]                   Toggle variables, scripting\r\n"
+    "write <pin> [high|low]              Write to a digital pin\r\n"
+    "set   [<pin> [input|output]]        Set a pin for output or input\r\n"
+    "read [<pin>|lfuse|hfuse|efuse|lock|calibration|signature]\r\n"
+    "                                    Read the run-time listed settings\r\n"
+    "passwd [<passwd>]                   Set a password for root in EEPROM.\r\n"
+    "auth <passwd>                       Authorize against the root password\r\n"
+    "fcpu                                Get the CPU speed.\r\n"
+    "timer [start|stop]                  Start and stop a real-time timer.\r\n"
+    "powerup adc|spi|twi|usart|all       Power up the listed interfaces.\r\n"
+    "powerdown adc|spi|twi|usart|all     Power down the listed interfaces\r\n"
+    "clock <prescaler>                   Change your CPU speed using a prescaler\r\n"
+    "\r\n               [ Programming/Scripting Interface ]\r\n"
+    "cat or echo <%REGISTER>|<$VARIABLE>         Displays the run-time contents of a register or variable\r\n"
+    "%REGISTER[bit] = [1|0]          Sets or clears a bit in a register\r\n"
+    "<$VARIABLE> = <\"STRING\">             Places the string in EEPROM accesible by <$VARIABLE>\r\n"
+    "Unimplemented features:\r\n"
+    "print [registers|variables|tasks]     Prints all known registers, saved variables, and tasks\r\n"
+    ":set bit <bit> in <REGISTER>          Scripted way to dynamically set bits at run-time\r\n"
+    ":clear bit <bit> in <REGISTER>        Scripted way to dynamicallly clear bits at run-time\r\n"
+    "\r\n";
 
 static uint8 * 	getPortByName(char *);
 static uint8	getPinByName(char *);
@@ -201,31 +232,7 @@ AVRShell::cmdFCPU()
 void
 AVRShell::cmdHelp()
 {
-    WriteLine(helpmenu1, 0);
-    WriteLine(helpmenu2, 0);
-    WriteLine(helpmenu3, 0);
-    WriteLine(helpmenu4, 0);
-    WriteLine(helpmenu4_1, 0);
-    WriteLine(helpmenu5, 0);
-    WriteLine(helpmenu6, 0);
-    WriteLine(helpmenu7, 0);
-    WriteLine(helpmenu7_5, 0);
-    WriteLine(helpmenu8, 0);
-    WriteLine(helpmenu9, 0);
-    WriteLine(helpmenu10, 0);
-    WriteLine(helpmenu11, 0);
-    WriteLine(helpmenu12, 0);
-    WriteLine(helpmenu13, 0);
-    WriteLine(helpmenu14, 0);
-    WriteLine(helpmenu15, 0);
-    WriteLine(helpmenu16, 0);
-    WriteLine(helpmenu16_1, 0);
-    WriteLine(helpmenu17, 0);
-    WriteLine(helpmenu18, 0);
-    WriteLine(helpmenu19, 0);
-    WriteLine(helpmenu20, 0);
-    WriteLine(helpmenu21, 0);
-    WriteLine(endl);
+    WriteLine(helpText);
 }
 
 void
@@ -316,12 +323,12 @@ AVRShell::cmdWrite(char ** args)
 void
 AVRShell::cmdEna(char ** args)
 {
-    if (!strcmp_P(args[0],pmVars)) {
+    if (!strcmp_P(args[0],PSTR("vars"))) {
 
 
         sprintf_P(buff,pmEnaSvc,args[0]);
         WriteRAM(buff);
-    } else if (!strcmp_P(args[0],pmScript)) {
+    } else if (!strcmp_P(args[0],PSTR("script"))) {
 
 
         sprintf_P(buff,pmEnaSvc,args[0]);
@@ -335,35 +342,35 @@ AVRShell::cmdEna(char ** args)
 uint8
 AVRShell::ExecCmd(char * c, char ** args)
 {
-    if ( !strcmp_P(c,pmCat) || !strcmp_P(c,pmEcho) )
+    if ( !strcmp_P(c,PSTR("cat")) || !strcmp_P(c,PSTR("echo")) )
         script->parseEcho(args);
-    else if (!strcmp_P(c,pmHelp) || !strcmp_P(c,pmMenu))
+    else if (!strcmp_P(c,PSTR("help")) || !strcmp_P(c,PSTR("menu")))
         cmdHelp();
-    else if (!strcmp_P(c,pmEna))
+    else if (!strcmp_P(c,PSTR("ena")))
         cmdEna(args);
-    else if (!strcmp_P(c,pmRead))
+    else if (!strcmp_P(c,PSTR("read")))
         cmdRead(args);
-    else if (!strcmp_P(c,pmWrite))
+    else if (!strcmp_P(c,PSTR("write")))
         cmdWrite(args);
-    else if (!strcmp_P(c,pmSet))
+    else if (!strcmp_P(c,PSTR("set")))
         cmdSet(args);
-    else if (!strcmp_P(c,pmFCPU))
+    else if (!strcmp_P(c,PSTR("fcpu")))
         cmdFCPU();
-    else if (!strcmp_P(c,pmTimer))
+    else if (!strcmp_P(c,PSTR("timer")))
         cmdTimer(args);
-    else if (!strcmp_P(c,pmAuth))
+    else if (!strcmp_P(c,PSTR("auth")))
         cmdAuth(args);
-    else if (!strcmp_P(c,pmPasswd))
+    else if (!strcmp_P(c,PSTR("passwd")))
         cmdPasswd(args);
-    else if (!strcmp_P(c,pmPrint))
+    else if (!strcmp_P(c,PSTR("print")))
         script->parsePrint(args);
     else if (c[0] == '$')
         script->parseVar(c,args);
     else if (!strcmp(c,"clock"))
         cmdClock(args);
-    else if (!strcmp_P(c,pmPowerup))
+    else if (!strcmp_P(c,PSTR("powerup")))
         cmdPowerUp(args);
-    else if (!strcmp_P(c,pmPowerdown))
+    else if (!strcmp_P(c,PSTR("powerdown")))
         cmdPowerDown(args);
     else if (c[0] == '%') {
         script->parseRegister(c,args);

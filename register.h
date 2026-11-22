@@ -8,6 +8,8 @@
 //
 // $Id: register.h,v 1.3 2009/08/30 17:44:28 gian Exp $
 ////////////////////////////////////////////////////////////////////////////
+#include "common.h"
+
 typedef struct _rv
 {
     volatile uint8 *	reg;
@@ -15,12 +17,9 @@ typedef struct _rv
 
 } RegisterVars;
 
-//extern RegisterVars	Registers[];
-
 class Register
 {
 public:
-    Register();
     static uint8 *	GetRegisterByName(const char *);
     static void		PrintRegisters();
     static void		WriteRegister(uint8 * reg);
@@ -32,10 +31,4 @@ private:
 
 };
 
-
-
-
-
-
-
-#endif	/* _AVRSH_SCRIPT_H_ */
+#endif	/* _AVRSH_REGISTER_H_ */

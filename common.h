@@ -7,35 +7,16 @@
 ///
 /// $Id: common.h,v 1.6 2009/09/05 04:06:17 gian Exp $
 ////////////////////////////////////////////////////////////////////////////
-#ifndef F_CPU
-#define F_CPU 16000000
-#endif
 #include <avr/io.h>
-#include <util/delay.h>
 #include <avr/pgmspace.h>
 #include <stdio.h>
 #include <stdint.h>
-
-// Timing & Timers
-//////// USART
-#define PRESCALER		1024
-#define CHECK_TIME		( (F_CPU / PRESCALER) / 4 )				// 250 ms
-#define StartTimer()	BSET(TCCR1B,CS10), BSET(TCCR1B,CS12)	// 1024 prescaler
-#define StopTimer()		BCLR(TCCR1B,CS10), BCLR(TCCR1B,CS12)
-#define ClearTimer()	(TCNT1 = 0)
-//////// SPI
-#define StartSPITimer()	BSET(TCCR2B,CS20), BSET(TCCR2B,CS22)
-#define StopSPITimer()	BCLR(TCCR2B,CS20), BCLR(TCCR2B,CS22)
-#define ClearSPITimer()	(TCNT2 = 0)
 
 // from AVR035: Efficient C Coding for AVR
 #define BSET(ADDRESS,BIT) (ADDRESS |= (unsigned char)(1<<BIT))
 #define BCLR(ADDRESS,BIT) (ADDRESS &= (unsigned char)~(1<<BIT))
 #define BTOG(ADDRESS,BIT) (ADDRESS ^= (unsigned char)(1<<BIT))
 #define BCHK(ADDRESS,BIT) (ADDRESS &  (unsigned char)(1<<BIT))
-
-#define IO_IN	0
-#define IO_OUT	1
 
 #define NUM_PINS 23
 
@@ -45,7 +26,6 @@
 typedef uint8_t		uint8;
 typedef uint16_t	uint16;
 typedef uint32_t	uint32;
-typedef unsigned char uchar;
 
 typedef struct
 {

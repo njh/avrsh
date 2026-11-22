@@ -8,10 +8,93 @@
 ////////////////////////////////////////////////////////////////////////////
 #include <avr/io.h>
 #include <string.h>
-#include "progmem.h"
 #include "common.h"
 #include "register.h"
 
+
+static const char pmPORTB[] PROGMEM = "PORTB";
+static const char pmPORTC[] PROGMEM = "PORTC";
+static const char pmPORTD[] PROGMEM = "PORTD";
+static const char pmDDRD[] PROGMEM = "DDRD";
+static const char pmDDRB[] PROGMEM = "DDRB";
+static const char pmDDRC[] PROGMEM = "DDRC";
+static const char pmPINB[] PROGMEM = "PINB";
+static const char pmPINC[] PROGMEM = "PINC";
+static const char pmPIND[] PROGMEM = "PIND";
+static const char pmSREG[] PROGMEM = "SREG";
+static const char pmGPIOR0[] PROGMEM = "GPIOR0";
+static const char pmGPIOR1[] PROGMEM = "GPIOR1";
+static const char pmGPIOR2[] PROGMEM = "GPIOR2";
+static const char pmTCCR0B[] PROGMEM = "TCCR0B";
+static const char pmOCR0A[] PROGMEM = "OCR0A";
+static const char pmSPCR[] PROGMEM = "SPCR";
+static const char pmACSR[] PROGMEM = "ACSR";
+static const char pmMCUSR[] PROGMEM = "MCUSR";
+static const char pmSPMCSR[] PROGMEM = "SPMCSR";
+static const char pmCLKPR[] PROGMEM = "CLKPR";
+static const char pmOSCCAL[] PROGMEM = "OSCCAL";
+static const char pmEICRA[] PROGMEM = "EICRA";
+static const char pmPCMSK1[] PROGMEM = "PCMSK1";
+static const char pmTIMSK1[] PROGMEM = "TIMSK1";
+static const char pmADCL[] PROGMEM = "ADCL";
+static const char pmADCSRA[] PROGMEM = "ADCSRA";
+static const char pmADMUX[] PROGMEM = "ADMUX";
+static const char pmDIDR1[] PROGMEM = "DIDR1";
+static const char pmTCCR1B[] PROGMEM = "TCCR1B";
+static const char pmTCNT1L[] PROGMEM = "TCNT1L";
+static const char pmTCNT1H[] PROGMEM = "TCNT1H";
+static const char pmICR1L[] PROGMEM = "ICR1L";
+static const char pmOCR1AL[] PROGMEM = "OCR1AL";
+static const char pmOCR1AH[] PROGMEM = "OCR1AH";
+static const char pmOCR1BL[] PROGMEM = "OCR1BL";
+static const char pmTCCR2A[] PROGMEM = "TCCR2A";
+static const char pmTCNT2[] PROGMEM = "TCNT2";
+static const char pmOCR2B[] PROGMEM = "OCR2B";
+static const char pmTWBR[] PROGMEM = "TWBR";
+static const char pmTWAR[] PROGMEM = "TWAR";
+static const char pmTWCR[] PROGMEM = "TWCR";
+static const char pmUCSR0A[] PROGMEM = "UCSR0A";
+static const char pmUCSR0C[] PROGMEM = "UCSR0C";
+static const char pmUBRR0L[] PROGMEM = "UBRR0L";
+static const char pmUDR0[] PROGMEM = "UDR0";
+static const char pmTIFR0[] PROGMEM = "TIFR0";
+static const char pmTIFR1[] PROGMEM = "TIFR1";
+static const char pmTIFR2[] PROGMEM = "TIFR2";
+static const char pmPCIFR[] PROGMEM = "PCIFR";
+static const char pmEIFR[] PROGMEM = "EIFR";
+static const char pmEIMSK[] PROGMEM = "EIMSK";
+static const char pmEECR[] PROGMEM = "EECR";
+static const char pmEEDR[] PROGMEM = "EEDR";
+static const char pmEEARL[] PROGMEM = "EEARL";
+static const char pmEEARH[] PROGMEM = "EEARH";
+static const char pmGTCCR[] PROGMEM = "GTCCR";
+static const char pmTCCR0A[] PROGMEM = "TCCR0A";
+static const char pmTCNT0[] PROGMEM = "TCNT0";
+static const char pmOCR0B[] PROGMEM = "OCR0B";
+static const char pmSPDR[] PROGMEM = "SPDR";
+static const char pmSMCR[] PROGMEM = "SMCR";
+static const char pmMCUCR[] PROGMEM = "MCUCR";
+static const char pmWDTCSR[] PROGMEM = "WDTCSR";
+static const char pmPRR[] PROGMEM = "PRR";
+static const char pmPCICR[] PROGMEM = "PCICR";
+static const char pmPCMSK0[] PROGMEM = "PCMSK0";
+static const char pmTIMSK0[] PROGMEM = "TIMSK0";
+static const char pmTIMSK2[] PROGMEM = "TIMSK2";
+static const char pmADCH[] PROGMEM = "ADCH";
+static const char pmADCSRB[] PROGMEM = "ADCSRB";
+static const char pmDIDR0[] PROGMEM = "DIDR0";
+static const char pmTCCR1A[] PROGMEM = "TCCR1A";
+static const char pmTCCR1C[] PROGMEM = "TCCR1C";
+static const char pmICR1H[] PROGMEM = "ICR1H";
+static const char pmOCR1BH[] PROGMEM = "OCR1BH";
+static const char pmTCCR2B[] PROGMEM = "TCCR2B";
+static const char pmOCR2A[] PROGMEM = "OCR2A";
+static const char pmASSR[] PROGMEM = "ASSR";
+static const char pmTWSR[] PROGMEM = "TWSR";
+static const char pmTWDR[] PROGMEM = "TWDR";
+static const char pmTWAMR[] PROGMEM = "TWAMR";
+static const char pmUCSR0B[] PROGMEM = "UCSR0B";
+static const char pmUBRR0H[] PROGMEM = "UBRR0H";
 
 // If you really need to conserve RAM, you can put each of these strings
 // individually into program memory and then put the array there, too.

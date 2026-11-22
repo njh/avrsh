@@ -8,7 +8,30 @@
 #include "common.h"
 #include <string.h>
 #include <stdlib.h>
-#include "progmem.h"
+
+static const char pmPB0[] PROGMEM = "PB0";
+static const char pmPB1[] PROGMEM = "PB1";
+static const char pmPB2[] PROGMEM = "PB2";
+static const char pmPB3[] PROGMEM = "PB3";
+static const char pmPB4[] PROGMEM = "PB4";
+static const char pmPB5[] PROGMEM = "PB5";
+static const char pmPB6[] PROGMEM = "PB6";
+static const char pmPB7[] PROGMEM = "PB7";
+static const char pmPC0[] PROGMEM = "PC0";
+static const char pmPC1[] PROGMEM = "PC1";
+static const char pmPC2[] PROGMEM = "PC2";
+static const char pmPC3[] PROGMEM = "PC3";
+static const char pmPC4[] PROGMEM = "PC4";
+static const char pmPC5[] PROGMEM = "PC5";
+static const char pmPC6[] PROGMEM = "PC6";
+static const char pmPD0[] PROGMEM = "PD0";
+static const char pmPD1[] PROGMEM = "PD1";
+static const char pmPD2[] PROGMEM = "PD2";
+static const char pmPD3[] PROGMEM = "PD3";
+static const char pmPD4[] PROGMEM = "PD4";
+static const char pmPD5[] PROGMEM = "PD5";
+static const char pmPD6[] PROGMEM = "PD6";
+static const char pmPD7[] PROGMEM = "PD7";
 
 const PortPin PortPins[] = {
     { &PORTB, &DDRB, PINB0, pmPB0},

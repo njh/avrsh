@@ -12,7 +12,6 @@
 #include "common.h"
 #include "script.h"
 
-#define EE_ROOT 0x01
 #define MAX_PROMPTSZ	30
 #define DEFAULT_PROMPT	"root@ATmega328p> "
 
@@ -24,7 +23,6 @@ public:
         timerStart = 0;
         bIsAuthorized = 0;
         StringCopy(_prompt,DEFAULT_PROMPT);
-        bIsFSOn = 0;
     }
 
     uint8	ExecCmd(char *, char **);
@@ -50,7 +48,6 @@ public:
     void	cmdPowerUp(char **);
     void	cmdPowerDown(char **);
     void	cmdEna(char **);
-    void	cmdDir(char **);
 
 private:
     ScriptEngine *	script;
@@ -58,7 +55,6 @@ private:
     char 			_prompt[MAX_PROMPTSZ];
     unsigned long	timerStart;	// millis() when 'timer start' was run
     uint8			bIsAuthorized;
-    uint8			bIsFSOn;
 
 };
 #endif	/* _AVRSH_SHELL_H_ */
