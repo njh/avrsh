@@ -1,0 +1,23 @@
+# Arduino sketch project file
+# https://arduino.github.io/arduino-cli/latest/sketch-project-file/
+#
+# Build with:  arduino-cli compile --profile uno
+#
+# AVR Shell talks directly to ATmega328P registers, so only
+# ATmega328P-based boards are listed here.
+
+default_fqbn: arduino:avr:uno
+default_profile: uno
+
+profiles:
+  uno:
+    notes: Arduino Uno (ATmega328P)
+    fqbn: arduino:avr:uno
+    platforms:
+      - platform: arduino:avr (1.8.8)
+
+  nano:
+    notes: Arduino Nano (ATmega328P)
+    fqbn: arduino:avr:nano:cpu=atmega328
+    platforms:
+      - platform: arduino:avr (1.8.8)

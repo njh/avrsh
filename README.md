@@ -1,5 +1,7 @@
 # AVR Shell
 
+[![Build](https://github.com/njh/avrsh/actions/workflows/build.yml/badge.svg)](https://github.com/njh/avrsh/actions/workflows/build.yml)
+
 Uploaded by nevdull on 2010-11-23 07:27:00 (rating 0 out of 5)
 
 ## Summary
@@ -24,8 +26,11 @@ Then open the Serial Monitor at **57600 baud**, with the line ending set to
 
 From the command line:
 
-    arduino-cli compile -b arduino:avr:uno .
-    arduino-cli upload -b arduino:avr:uno -p <port> .
+    arduino-cli compile --profile uno .
+    arduino-cli upload --profile uno -p <port> .
+
+Build profiles for the Uno and Nano are defined in `sketch.yaml`; use
+`--profile nano` for a Nano. GitHub Actions builds both on every push.
 
 The code talks directly to ATmega328P registers, so other boards are not supported.
 
