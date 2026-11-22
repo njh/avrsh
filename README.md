@@ -1,40 +1,64 @@
 # AVR Shell
 
-[![Build](https://github.com/njh/avrsh/actions/workflows/build.yml/badge.svg)](https://github.com/njh/avrsh/actions/workflows/build.yml)
+[![CI](https://github.com/njh/avrsh/actions/workflows/build.yml/badge.svg)](https://github.com/njh/avrsh/actions/workflows/build.yml)
 
-Uploaded by nevdull on 2010-11-23 07:27:00 (rating 0 out of 5)
+A command shell for the ATmega328P, like a tiny UNIX shell over the serial port.
+Type commands to see the state of registers, ports and fuses in real time, and
+change any pin or register while the system is running.
 
-## Summary
+AVR Shell was written by B. Gian James in 2009 and published on the
+[AVR Freaks / Atmel community site](https://community.atmel.com/projects/avr-shell)
+and as an [Instructable](https://www.instructables.com/id/AVRSH-A-Command-Interpreter-Shell-for-ArduinoAVR/).
+This version has been ported to build with the Arduino IDE and Arduino core.
 
-This is a shell, like a traditional UNIX shell, that allows you to enter commands and it will respond in real-time, showing status of registers, ports, fuses, signature, calibrations, etc while allowing you to easily change the status of any pin or register in the system while the system is running.
+## Hardware
 
-
-Connection is 57600 8N1 via a serial terminal. I use AVR Terminal for communication. There are still more features to be added but this is the set for release 1. It currently is made for an AVR ATmega328P with a serial connection or FTDI connection to a COM port on the PC. The arduino works out of the box and any other m328p will with the additional requirements.
-
-
-See the step-by-step setup and code at my instructable:  
-
- [http://www.instructables.com/id/AVRSH-A-Command-Interpreter-Shell-for-ArduinoAVR/](http://www.instructables.com/id/AVRSH-A-Command-Interpreter-Shell-for-ArduinoAVR)
+Any ATmega328P board, such as the **Arduino Uno** or **Arduino Nano**. The code
+talks directly to ATmega328P registers, so other chips are not supported.
 
 ## Building
 
-This project is an Arduino sketch. Open `avrsh.ino` in the Arduino IDE, select
-an ATmega328P board (e.g. **Arduino Uno** or **Arduino Nano**), and upload.
+Open `avrsh.ino` in the Arduino IDE, select your board, and upload.
 
-Then open the Serial Monitor at **57600 baud**, with the line ending set to
-"Newline", "Carriage return" or "Both NL & CR", and type `help`.
-
-From the command line:
+From the command line, using the build profiles in `sketch.yaml`:
 
     arduino-cli compile --profile uno .
     arduino-cli upload --profile uno -p <port> .
 
-Build profiles for the Uno and Nano are defined in `sketch.yaml`; use
-`--profile nano` for a Nano. GitHub Actions builds both on every push.
 
-The code talks directly to ATmega328P registers, so other boards are not supported.
+## Connecting
 
-## Tags
+The shell runs at **57600 baud, 8N1**.
 
-- Complete code
-- Arduino
+- **Arduino Serial Monitor:** set the baud rate to 57600 and the line ending to
+  "Newline", "Carriage return" or "Both NL & CR".
+- **minicom:** `minicom -D <port> -b 57600`. The shell doesn't echo what you type
+  yet, so turn on local echo with Ctrl-A E.
+
+Type `help` for the full list of commands.
+
+## Commands
+
+| Command | Description |
+|---|---|
+| `help` or `menu` | Show the help menu |
+| `set pin <pin> input\|output` | Set a pin's direction, e.g. `set pin PB5 output` |
+| `write pin <pin> high\|low` | Write to a digital pin |
+| `read pin <pin>` | Read a digital pin |
+| `read lfuse\|hfuse\|efuse\|lock` | Read the fuse or lock bits |
+| `fcpu` | Show the CPU frequency |
+| `timer start\|stop` | Time an interval in seconds |
+| `powerup` / `powerdown adc\|spi\|uart\|twi\|all` | Power peripherals up or down |
+| `clock ckdiv1`…`ckdiv256` | Change the CPU clock prescaler (this also changes the serial baud rate) |
+| `passwd <password>` / `auth <password>` | Set, or authorise against, a root password stored in EEPROM |
+| `print registers\|variables` | List the known registers or saved variables |
+| `echo %REGISTER` / `echo $VARIABLE` | Show a register or variable |
+| `%REGISTER[bit] = 1\|0` | Set or clear a bit in a register |
+| `$VARIABLE = <value>` | Store a value in an EEPROM variable |
+
+Pins use their AVR port names, `PB0`–`PB7`, `PC0`–`PC6` and `PD0`–`PD7`.
+On an Uno, the built-in LED is `PB5`.
+
+## Licence
+
+BSD licence, copyright (c) 2009 Barry James. See [LICENSE.txt](LICENSE.txt).
