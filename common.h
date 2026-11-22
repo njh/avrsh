@@ -36,8 +36,6 @@
 
 #define IO_IN	0
 #define IO_OUT	1
-#define HIGH	1
-#define LOW		0
 
 #define NUM_PINS 23
 

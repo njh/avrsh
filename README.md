@@ -14,11 +14,22 @@ See the step-by-step setup and code at my instructable:
 
  [http://www.instructables.com/id/AVRSH-A-Command-Interpreter-Shell-for-ArduinoAVR/](http://www.instructables.com/id/AVRSH-A-Command-Interpreter-Shell-for-ArduinoAVR)
 
-## Compilers
+## Building
 
-- WinAVR (GNU GCC)
+This project is an Arduino sketch. Open `avrsh.ino` in the Arduino IDE, select
+an ATmega328P board (e.g. **Arduino Uno** or **Arduino Nano**), and upload.
+
+Then open the Serial Monitor at **57600 baud**, with the line ending set to
+"Newline", "Carriage return" or "Both NL & CR", and type `help`.
+
+From the command line:
+
+    arduino-cli compile -b arduino:avr:uno .
+    arduino-cli upload -b arduino:avr:uno -p <port> .
+
+The code talks directly to ATmega328P registers, so other boards are not supported.
 
 ## Tags
 
 - Complete code
-- WinAVR (GNU GCC)
+- Arduino

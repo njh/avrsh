@@ -174,27 +174,5 @@ extern char const __attribute__((__progmem__))  pmPowerup[];
 extern char const __attribute__((__progmem__))  pmPowerdown[];
 extern char const __attribute__((__progmem__))  pmTimer[];
 extern char const __attribute__((__progmem__))  pmEnaSvc[];
-//extern char const __attribute__((__progmem__))  [];
-//extern char const __attribute__((__progmem__))  [];
-//extern char const __attribute__((__progmem__))  [];
-//extern char const __attribute__((__progmem__))  [];
-//extern char const __attribute__((__progmem__))  [];
-//extern char const __attribute__((__progmem__))  [];
-//extern char const __attribute__((__progmem__))  [];
-//extern char const __attribute__((__progmem__))  [];
-
-
-#ifdef _AVRSH_FILESYSTEM_H_
-// DirectoryService
-extern char const __attribute__((__progmem__))  pmRoot[];
-extern char const __attribute__((__progmem__))  pmRegisters[];
-extern char const __attribute__((__progmem__))  pmPins[];
-extern char const __attribute__((__progmem__))  pmPeripherals[];
-extern char const __attribute__((__progmem__))  pmUsers[];
-extern char const __attribute__((__progmem__))  pmDirHead[];
-extern char const __attribute__((__progmem__))  pmDirFormat[];
-extern char const __attribute__((__progmem__))  pmNULL[];
-#endif
-
 
 #endif	/* _AVRSH_PROGMEM_H_ */

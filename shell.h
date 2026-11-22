@@ -8,8 +8,8 @@
 //
 // $Id: shell.h,v 1.5 2009/09/02 12:55:17 gian Exp $
 ////////////////////////////////////////////////////////////////////////////
+#include <Arduino.h>
 #include "common.h"
-//#include "uart.h"
 #include "script.h"
 
 #define EE_ROOT 0x01
@@ -21,8 +21,7 @@ class AVRShell
 public:
     AVRShell(Stream * stream) {
         out = stream;
-        timeSec = 0;
-        timect=0;
+        timerStart = 0;
         bIsAuthorized = 0;
         StringCopy(_prompt,DEFAULT_PROMPT);
         bIsFSOn = 0;
@@ -30,9 +29,6 @@ public:
 
     uint8	ExecCmd(char *, char **);
     uint8	Process(char * b);
-    inline void AddSec() volatile {
-        ++timeSec;
-    }
     inline void SetScriptEngine(ScriptEngine * se) {
         script = se;
     }
@@ -56,14 +52,11 @@ public:
     void	cmdEna(char **);
     void	cmdDir(char **);
 
-
-    volatile uint8 timect;
-
 private:
     ScriptEngine *	script;
     Stream *		out;
     char 			_prompt[MAX_PROMPTSZ];
-    volatile uint8	timeSec;
+    unsigned long	timerStart;	// millis() when 'timer start' was run
     uint8			bIsAuthorized;
     uint8			bIsFSOn;
 

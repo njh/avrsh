@@ -106,7 +106,7 @@ AVRShell::cmdPasswd(char ** args)
 {
     char passwd[MAX_PASSWD];
     eeprom_read_block((void*)&passwd,(const void*)ee_passwd,MAX_PASSWD);
-    if (passwd[0] == 0xFF) {
+    if ((uint8)passwd[0] == 0xFF) {
         eeprom_write_block((const void*)args[0],(void*)ee_passwd,MAX_PASSWD);
         WriteLine(PSTR("Wrote root password to EEPROM\r\n"));
     } else if (bIsAuthorized) {
@@ -142,7 +142,7 @@ AVRShell::cmdAuth(char ** args)
 {
     char passwd[MAX_PASSWD];
     eeprom_read_block(passwd,(const void*)ee_passwd,MAX_PASSWD);
-    if (passwd[0] == 0xFF) {
+    if ((uint8)passwd[0] == 0xFF) {
         WriteLine(PSTR("No password set. Use \'passwd\'\r\n"));
     } else if (!strcmp(passwd,*args)) {
         bIsAuthorized = 1;
@@ -180,21 +180,13 @@ void
 AVRShell::cmdTimer(char ** args)
 {
     if (!strcmp(*args,"start")) {
-        timect = 0;
-        BSET(TCCR0B,CS00);
-        BSET(TCCR0B,CS02);
-        BSET(TCCR0A,WGM01);
-        BSET(TIMSK0,OCIE0A);
-        OCR0A = 156;
+        timerStart = millis();
         WriteLine(PSTR("Started timer.\r\n"));
     } else if (!strcmp(*args,"stop")) {
-        BCLR(TCCR0B,CS10);
-        BCLR(TCCR0B,CS12);
-        BCLR(TIMSK0,OCIE0A);
-        TCNT0 = 0;
-        sprintf_P(buff,PSTR("Elapsed time: ~ %d seconds\r\n"),timeSec);
+        unsigned long elapsed = (millis() - timerStart) / 1000;
+        sprintf_P(buff,PSTR("Elapsed time: ~ %lu seconds\r\n"),elapsed);
         WriteRAM(buff);
-        timeSec = 0;
+        timerStart = 0;
     }
 }
 
